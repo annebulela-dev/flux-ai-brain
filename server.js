@@ -15,7 +15,7 @@ app.post('/get-signal', async (req, res) => {
             params: { symbol, interval: "5min", outputsize: 50, apikey: TWELVE_API_KEY }
         });
 
-        const candles = response.data.values;
+        const candles = response.data.values || [];
         if (!candles || candles.length < 2) return res.json({ signal: "HOLD", rsi: 50 });
 
         const lastClose = parseFloat(candles[0].close);
